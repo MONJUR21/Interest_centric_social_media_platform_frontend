@@ -1,0 +1,1 @@
+const InterestPosts = response.data.filter(post => post.interest === interestname);
