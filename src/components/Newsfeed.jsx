@@ -200,74 +200,78 @@ const Newsfeed = () => {
   };
 
   return (
-    <div className="profile-posts-section">
-      {posts.length > 0 ? (
-        <div className="profile-posts">
-          {posts.map((post) => (
-            <div key={post.id} className="post-card">
-              <img
-                className="post-image"
-                src={
-                  post.image
-                    ? `http://localhost:5000/${post.image.replace(/\\/g, "/")}`
-                    : "/default-image.jpg"
-                }
-                alt={post.title}
-              />
-              <div className="post-content">
-                <h3>{post.title}</h3>
-                <p className="post-author">By {post.author}</p>
-                <p className="post-date">{post.date}</p>
-                <p className="post-interest">
-                  <strong>Interest:</strong> {post.interest}
-                </p>
-                <p
-                  className={`post-text ${
-                    post.showFullContent ? "show-full" : ""
-                  }`}
-                >
-                  {post.showFullContent
-                    ? post.content
-                    : `${post.content.substring(0, 150)}...`}
-                </p>
-                {post.content.length > 150 && (
-                  <button
-                    className="see-more-btn"
-                    onClick={() => toggleContentVisibility(post.id)}
+    <div className="newsfeedd">
+      <div className="profile-posts-section">
+        {posts.length > 0 ? (
+          <div className="profile-posts">
+            {posts.map((post) => (
+              <div key={post.id} className="post-card">
+                <img
+                  className="post-image"
+                  src={
+                    post.image
+                      ? `http://localhost:5000/${post.image.replace(
+                          /\\/g,
+                          "/"
+                        )}`
+                      : "/default-image.jpg"
+                  }
+                  alt={post.title}
+                />
+                <div className="post-content">
+                  <h3>{post.title}</h3>
+                  <p className="post-author">By {post.author}</p>
+                  <p className="post-date">{post.date}</p>
+                  <p className="post-interest">
+                    <strong>Interest:</strong> {post.interest}
+                  </p>
+                  <p
+                    className={`post-text ${
+                      post.showFullContent ? "show-full" : ""
+                    }`}
                   >
-                    {post.showFullContent ? "Show Less" : "See More"}
+                    {post.showFullContent
+                      ? post.content
+                      : `${post.content.substring(0, 150)}...`}
+                  </p>
+                  {post.content.length > 150 && (
+                    <button
+                      className="see-more-btn"
+                      onClick={() => toggleContentVisibility(post.id)}
+                    >
+                      {post.showFullContent ? "Show Less" : "See More"}
+                    </button>
+                  )}
+                </div>
+
+                <div className="reactions-section">
+                  <button onClick={() => toggleReactions(post.id, "like")}>
+                    👍 Like ({post.reactions?.like || 0})
                   </button>
-                )}
-              </div>
+                  <button onClick={() => toggleReactions(post.id, "love")}>
+                    ❤️ Love ({post.reactions?.love || 0})
+                  </button>
+                  <button onClick={() => toggleReactions(post.id, "angry")}>
+                    😡 Angry ({post.reactions?.angry || 0})
+                  </button>
+                </div>
 
-              <div className="reactions-section">
-                <button onClick={() => toggleReactions(post.id, "like")}>
-                  👍 Like ({post.reactions?.like || 0})
-                </button>
-                <button onClick={() => toggleReactions(post.id, "love")}>
-                  ❤️ Love ({post.reactions?.love || 0})
-                </button>
-                <button onClick={() => toggleReactions(post.id, "angry")}>
-                  😡 Angry ({post.reactions?.angry || 0})
-                </button>
+                <CommentsSection
+                  post={post}
+                  toggleCommentsVisibility={toggleCommentsVisibility}
+                  newComment={newComment}
+                  handleCommentChange={handleCommentChange}
+                  handleCommentSubmit={handleCommentSubmit}
+                  setNewComment={setNewComment}
+                  updatePostComments={updatePostComments}
+                />
               </div>
-
-              <CommentsSection
-              post={post}
-              toggleCommentsVisibility={toggleCommentsVisibility}
-              newComment={newComment}
-              handleCommentChange={handleCommentChange}
-              handleCommentSubmit={handleCommentSubmit}
-              setNewComment={setNewComment}
-              updatePostComments={updatePostComments}
-              />
-              
-            </div>
-          ))}
-        </div>
-      ) : (
-        <p>Loading....</p>
-      )}
+            ))}
+          </div>
+        ) : (
+          <span class="loader"></span>
+        )}
+      </div>
     </div>
   );
 };

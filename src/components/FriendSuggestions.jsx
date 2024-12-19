@@ -89,6 +89,7 @@ const FriendSuggestions = () => {
   };
 
   return (
+    <div className="usersfollow">
     <div className="friend-suggestions">
       <h2>Friend Suggestions</h2>
       <div className="user-list">
@@ -109,6 +110,7 @@ const FriendSuggestions = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

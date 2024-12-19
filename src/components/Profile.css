@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
 }
-body {
+.profile {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -141,7 +141,7 @@ body {
 .post-form input,
 .post-form textarea,
 .post-form select {
-  width: 100%;
+  width: 93%;
   margin-bottom: 15px;
   padding: 10px;
   border: 1px solid #ccc;
@@ -169,101 +169,414 @@ body {
   gap: 20px;
 }
 
-/* Post Card */
+/* General Styles */
 .post-card {
-  background: #fff;
+  background-color: #fff;
+  padding: 2rem;
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
 }
 
-.post-card img {
+.post-card:hover {
+  transform: translateY(-5px);
+}
+
+.post-image {
   width: 100%;
-  height: auto;
-  max-height: 300px;
+  height: 350px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
   object-fit: contain;
 }
 
-.post-card .post-content {
-  padding: 15px;
+.post-content {
+  margin-bottom: 1rem;
 }
 
-.post-card h3 {
+.post-content h3 {
   font-size: 1.5rem;
-  margin-bottom: 10px;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
-.post-card p {
-  margin-bottom: 10px;
-}
-
-.post-card .post-author {
-  font-style: italic;
+.post-author,
+.post-date,
+.post-interest {
+  font-size: 0.9rem;
   color: #555;
+  margin-bottom: 0.5rem;
 }
 
-.post-card .see-more-btn {
-  background: none;
-  border: none;
-  color: #0073e6;
-  cursor: pointer;
+.post-text {
   font-size: 1rem;
-  margin: 10px 0;
+  color: #444;
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
-.post-card .see-more-btn:hover {
-  text-decoration: underline;
+.show-full {
+  display: block;
 }
 
-/* Reactions Section */
+.see-more-btn {
+  background-color: #6e8efb;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+  background-color: #5a7be1;
+}
+
+/* Reactions section */
+.reactions-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 .reactions-section button {
-  background: none;
+  background-color: #f1f1f1;
+  padding: 0.5rem 1rem;
   border: none;
-  color: #0073e6;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
-  margin-right: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .reactions-section button:hover {
-  text-decoration: underline;
+  background-color: #ddd;
 }
 
-/* Comments Section */
-.comments-section {
-  margin-top: 15px;
+/* Post Actions (Edit and Delete) */
+.post-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-left: 10px;
 }
 
-.comments-section input {
-  width: calc(100% - 90px);
-  padding: 8px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.comments-section button {
-  background: #0073e6;
-  color: white;
+.edit-btn,
+.delete-btn {
+  padding: 0.5rem 1rem;
   border: none;
-  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #e6892c;
+}
+
+.delete-btn {
+  background-color: #d9534f;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .post-card {
+    padding: 1.5rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .post-author,
+  .post-date,
+  .post-interest,
+  .post-text {
+    font-size: 0.9rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-actions button {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-card {
+    padding: 1rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.2rem;
+  }
+
+  .post-author,
+  .post-date,
+  .post-interest,
+  .post-text {
+    font-size: 0.85rem;
+  }
+
+  .reactions-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reactions-section button {
+    margin-bottom: 0.5rem;
+  }
+
+  .post-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-actions button {
+    margin-bottom: 0.5rem;
+  }
+}
+
+
+/* General Styles for Reactions Section */
+.reactions-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.reactions-section button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  color: #444;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reactions-section button:hover {
+  background-color: #e2e2e2;
+  transform: translateY(-3px);
+}
+
+.reactions-section button:active {
+  transform: translateY(1px);
+}
+
+.reactions-section button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.3);
+}
+
+.reactions-section button svg {
+  margin-right: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .reactions-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .reactions-section button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .reactions-section button {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+
+/* General Styles for Comments Section */
+.comments {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.comment-toggle-btn {
+  background-color: #ddd;
+  padding: 0.5rem 1rem;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.comments-section button:hover {
-  background: #005bb5;
+.comment-toggle-btn:hover {
+  background-color: #bbb;
 }
-.comment{
-  max-height: 250px;
-  overflow: scroll;
+
+.comment-textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
+  min-height: 80px;
+  font-size: 1rem;
+  box-sizing: border-box;
 }
-.comments{
-  max-height: 250px;
-  overflow: scroll;
+
+.comment-submit-btn {
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
+.comment-submit-btn:hover {
+  background-color: #218838;
+}
+
+.comments-list {
+  margin-top: 1rem;
+  max-height: 300px;  /* Add a max-height to the comments container */
+  overflow-y: auto;  /* Enable vertical scrolling */
+}
+
+.comment {
+  padding: 1rem;
+  background-color: #fff;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  max-height: 150px; /* Set a max-height for long comments */
+  overflow-y: auto; /* Enable vertical scroll for long content */
+}
+
+.comment p {
+  margin: 0.5rem 0;
+}
+
+.comment strong {
+  color: #333;
+}
+
+.comment-edit-btn,
+.comment-delete-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.comment-edit-btn:hover,
+.comment-delete-btn:hover {
+  background-color: #0056b3;
+}
+
+.comment-update-btn {
+  background-color: #28a745; /* Green for Save */
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-update-btn:hover {
+  background-color: #218838;
+}
+
+.comment-cancel-btn {
+  margin-left: 5px;
+  background-color: #f44336; /* Red for Cancel */
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.comment-cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .comments {
+    padding: 1rem;
+  }
+
+  .comment-textarea {
+    min-height: 60px;
+  }
+
+  .comment-submit-btn {
+    width: 100%;
+  }
+
+  .comments-list {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .comment-textarea {
+    min-height: 50px;
+  }
+
+  .comment-submit-btn {
+    width: 100%;
+  }
+
+  .comment-edit-btn,
+  .comment-delete-btn {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.4rem;
+  }
+
+  .comment-update-btn {
+    font-size: 0.8rem;
+    padding: 0.25rem 0.4rem;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .profile-header h1 {

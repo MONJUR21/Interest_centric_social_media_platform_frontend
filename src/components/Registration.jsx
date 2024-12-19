@@ -107,6 +107,7 @@ const Registration = () => {
   };
 
   return (
+    <div className="reg">
     <div className="registration-container">
       <form className="registration-form" onSubmit={handleSubmit}>
         <h2 className="registration-form-header">Register</h2>
@@ -199,6 +200,7 @@ const Registration = () => {
         </button>
         {message && <p className="registration-form-message">{message}</p>}
       </form>
+    </div>
     </div>
   );
 };

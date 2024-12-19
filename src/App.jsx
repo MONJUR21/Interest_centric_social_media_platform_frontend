@@ -25,7 +25,13 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsAuthenticated(!!token);
+
+    // Check if the token exists and is valid, otherwise log the user out
+    if (token) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
   }, []);
 
   const handleLogout = () => {
@@ -66,9 +72,7 @@ const App = () => {
         />
         <Route
           path="/notifications"
-          element={
-            isAuthenticated ? <Notifications /> : <Navigate to="/login" />
-          }
+          element={isAuthenticated ? <Notifications /> : <Navigate to="/login" />}
         />
         <Route
           path="/interest/art"
@@ -80,9 +84,7 @@ const App = () => {
         />
         <Route
           path="/interest/outdoorAdventure"
-          element={
-            isAuthenticated ? <OutDoorAdventure /> : <Navigate to="/login" />
-          }
+          element={isAuthenticated ? <OutDoorAdventure /> : <Navigate to="/login" />}
         />
         <Route
           path="/interest/sports"

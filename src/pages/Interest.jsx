@@ -187,6 +187,7 @@ const Interest = ({interestname}) => {
 
   return (
     <div className="profile-posts-section">
+      <center><h1>{interestname}</h1></center>
       {posts.length > 0 ? (
         <div className="profile-posts">
           {posts.map((post) => (
@@ -204,7 +205,7 @@ const Interest = ({interestname}) => {
                   <strong>Interest:</strong> {post.interest}
                 </p>
                 <p className={`post-text ${post.showFullContent ? "show-full" : ""}`}>
-                  {post.showFullContent ? post.content : `${post.content.substring(0, 150)}...`}
+                  {post.showFullContent ? post.content : `${post.content.substring(0, 150)}`}
                 </p>
                 {post.content.length > 150 && (
                   <button
@@ -241,7 +242,7 @@ const Interest = ({interestname}) => {
           ))}
         </div>
       ) : (
-        <p>Loading....</p>
+        <span class="loader"></span>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ import "./Profile.css";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
-  const [count,setCount] = useState(0);
+  const [count, setCount] = useState(0);
   const [refreshCount, setRefreshCount] = useState(0);
   const [userInfo, setUserInfo] = useState({
     fullName: "",
@@ -102,7 +102,7 @@ const Profile = () => {
         console.error("Error fetching post counts:", error);
       }
     };
-  
+
     fetchPostCounts();
   }, []);
 
@@ -122,11 +122,9 @@ const Profile = () => {
         console.error("Error fetching post counts:", error);
       }
     };
-  
+
     fetchPostsCounts();
   }, [refreshCount]); // Rerun when refreshCount changes
-  
-
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -166,9 +164,12 @@ const Profile = () => {
           return;
         }
 
-        const response = await axios.get("http://localhost:5000/api/follows/counts", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "http://localhost:5000/api/follows/counts",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         if (response.status === 200) {
           setFollowersCount(response.data.followersCount);
@@ -195,7 +196,6 @@ const Profile = () => {
       console.error("Selected file is not an image");
     }
   };
- 
 
   const updatePostComments = (postId, updatedComments) => {
     setPosts((prevPosts) =>
@@ -222,7 +222,7 @@ const Profile = () => {
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (newPost.title && newPost.content && newPost.interest) {
       try {
         const token = localStorage.getItem("token");
@@ -232,7 +232,7 @@ const Profile = () => {
         if (newPost.image) {
           formData.append("image", newPost.image);
         }
-  
+
         formData.append("interest", newPost.interest);
         const response = await axios.post(
           "http://localhost:5000/api/posts",
@@ -247,7 +247,7 @@ const Profile = () => {
         setPosts([response.data.post, ...posts]);
         console.log(response.data.post);
         setNewPost({ title: "", content: "", image: "", interest: "" });
-  
+
         // Update post counts after adding a post
         await updatePostCounts();
         setRefreshCount((prev) => prev + 1);
@@ -351,15 +351,25 @@ const Profile = () => {
   };
 
   const fetchComments = async (postId) => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.error("Unauthorized: No token found");
+      return []; // Return empty comments to prevent errors
+    }
+
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/comments/post/${postId}`
+        `http://localhost:5000/api/comments/post/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       return response.data;
     } catch (error) {
       console.error("Error fetching comments:", error);
-      alert("Failed to fetch comments.");
-      return [];
+      return []; // Return empty array if there is an error fetching comments
     }
   };
 
@@ -459,91 +469,105 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <ProfileHeader userInfo={userInfo} followersCount={followersCount} followingCount={followingCount}/>
-      <div className="bar">
-      <BarChart width={600} height={300} margin={{ top: 20, right: 30, left: 20, bottom: 65 }} data={postCounts}>
-      <XAxis dataKey="interest" angle={-30} textAnchor="end" />
-        <YAxis />
-        <Tooltip />
-        <Bar dataKey="post_count" fill="#8884d8" />
-      </BarChart>
-      <h1>Total Post: {count}</h1>
-      </div>
-      {editPost ? (
-        <form className="edit-post-form" onSubmit={handleUpdatePost}>
-          <input
-            type="text"
-            name="title"
-            value={editPost.title}
-            onChange={(e) =>
-              setEditPost({ ...editPost, title: e.target.value })
-            }
-            placeholder="Title"
-            required
-          />
-          <textarea
-            name="content"
-            value={editPost.content}
-            onChange={(e) =>
-              setEditPost({ ...editPost, content: e.target.value })
-            }
-            placeholder="Content"
-            required
-          />
-          <select
-            name="interest"
-            value={editPost.interest}
-            onChange={(e) =>
-              setEditPost({ ...editPost, interest: e.target.value })
-            }
-            required
-          >
-            {interests.map((interest) => (
-              <option key={interest} value={interest}>
-                {interest}
-              </option>
-            ))}
-          </select>
-          <input
-            type="file"
-            name="image"
-            onChange={(e) =>
-              setEditPost({ ...editPost, image: e.target.files[0] })
-            }
-          />
-          <button type="submit">Update Post</button>
-          <button type="button" onClick={() => setEditPost(null)}>
-            Cancel
-          </button>
-        </form>
-      ) : (
-        <PostForm
-          newPost={newPost}
-          setNewPost={setNewPost}
-          handlePostSubmit={handlePostSubmit}
-          handleInputChange={handleInputChange}
-          handleImageChange={handleImageChange}
-          interests={interests}
+    <div className="profile">
+      <div className="profile-container">
+        <ProfileHeader
+          userInfo={userInfo}
+          followersCount={followersCount}
+          followingCount={followingCount}
         />
-      )}
-      <div className="posts">
-        {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            toggleContentVisibility={toggleContentVisibility}
-            toggleReactions={toggleReactions}
-            toggleCommentsVisibility={toggleCommentsVisibility}
-            newComment={newComment}
-            handleCommentChange={handleCommentChange}
-            handleCommentSubmit={handleCommentSubmit}
-            handleEditPost={handleEditPost}
-            handleDeletePost={handleDeletePost}
-            setNewComment={setNewComment}
-            updatePostComments={updatePostComments}
+        {count > 0 && (
+          <div className="bar">
+            <BarChart
+              width={600}
+              height={300}
+              margin={{ top: 20, right: 30, left: 20, bottom: 65 }}
+              data={postCounts}
+            >
+              <XAxis dataKey="interest" angle={-30} textAnchor="end" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="post_count" fill="#8884d8" />
+            </BarChart>
+            <h1>Total Post: {count}</h1>
+          </div>
+        )}
+
+        {editPost ? (
+          <form className="edit-post-form" onSubmit={handleUpdatePost}>
+            <input
+              type="text"
+              name="title"
+              value={editPost.title}
+              onChange={(e) =>
+                setEditPost({ ...editPost, title: e.target.value })
+              }
+              placeholder="Title"
+              required
+            />
+            <textarea
+              name="content"
+              value={editPost.content}
+              onChange={(e) =>
+                setEditPost({ ...editPost, content: e.target.value })
+              }
+              placeholder="Content"
+              required
+            />
+            <select
+              name="interest"
+              value={editPost.interest}
+              onChange={(e) =>
+                setEditPost({ ...editPost, interest: e.target.value })
+              }
+              required
+            >
+              {interests.map((interest) => (
+                <option key={interest} value={interest}>
+                  {interest}
+                </option>
+              ))}
+            </select>
+            <input
+              type="file"
+              name="image"
+              onChange={(e) =>
+                setEditPost({ ...editPost, image: e.target.files[0] })
+              }
+            />
+            <button type="submit">Update Post</button>
+            <button type="button" onClick={() => setEditPost(null)}>
+              Cancel
+            </button>
+          </form>
+        ) : (
+          <PostForm
+            newPost={newPost}
+            setNewPost={setNewPost}
+            handlePostSubmit={handlePostSubmit}
+            handleInputChange={handleInputChange}
+            handleImageChange={handleImageChange}
+            interests={interests}
           />
-        ))}
+        )}
+        <div className="posts">
+          {posts.map((post) => (
+            <PostCard
+              key={post.id}
+              post={post}
+              toggleContentVisibility={toggleContentVisibility}
+              toggleReactions={toggleReactions}
+              toggleCommentsVisibility={toggleCommentsVisibility}
+              newComment={newComment}
+              handleCommentChange={handleCommentChange}
+              handleCommentSubmit={handleCommentSubmit}
+              handleEditPost={handleEditPost}
+              handleDeletePost={handleDeletePost}
+              setNewComment={setNewComment}
+              updatePostComments={updatePostComments}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

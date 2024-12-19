@@ -1,61 +1,88 @@
 .friend-suggestions {
-    padding: 20px;
-    max-width: 600px;
-    margin: 0 auto;
-    background: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 1000px;
+  margin: 2rem auto;
+}
+
+.friend-suggestions h2 {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.user-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* User card */
+.user-card {
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+}
+
+.user-card h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.user-card button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Follow button */
+.follow-btn {
+  background-color: #6e8efb;
+  color: #fff;
+}
+
+.follow-btn:hover {
+  background-color: #5a7be1;
+}
+
+/* Unfollow button */
+.unfollow-btn {
+  background-color: #ff6b6b;
+  color: #fff;
+}
+
+.unfollow-btn:hover {
+  background-color: #e75f5f;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .friend-suggestions {
+    padding: 1rem;
   }
-  
+
   .user-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
-  
-  .user-card {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+}
+
+@media (max-width: 480px) {
+  .user-list {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
-  
-  .user-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
-  }
-  
-  .user-card p {
-    margin: 5px 0 10px;
-    color: #666;
-  }
-  
-  .follow-btn, .unfollow-btn {
-    padding: 8px 12px;
-    font-size: 1rem;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .follow-btn {
-    background-color: #007bff;
-  }
-  
-  .follow-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .unfollow-btn {
-    background-color: #dc3545;
-  }
-  
-  .unfollow-btn:hover {
-    background-color: #a71d2a;
-  }
-  
+}

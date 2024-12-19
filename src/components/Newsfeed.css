@@ -1,80 +1,214 @@
-.profile-posts-section {
-  margin: 40px;
-}
-
+/* General Styles */
 .profile-posts {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 800px;
 }
 
 .post-card {
-  background-color: white;
-  border-radius: 8px;
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease;
 }
 
 .post-card:hover {
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
 }
 
 .post-image {
   width: 100%;
-  height: 200px;
+  height: 350px;
+  border-radius: 10px;
+  margin-bottom: 1rem;
   object-fit: contain;
 }
 
 .post-content {
-  padding: 20px;
-  flex-grow: 1; /* Ensures content fills available space */
+  margin-bottom: 1rem;
 }
 
 .post-content h3 {
-  font-size: 1.25rem;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
 }
 
 .post-author,
-.post-date {
+.post-date,
+.post-interest {
   font-size: 0.9rem;
-  color: #7f8c8d;
+  color: #555;
+  margin-bottom: 0.5rem;
 }
 
 .post-text {
   font-size: 1rem;
-  line-height: 1.5;
+  color: #444;
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
-/* Ensure comments section doesn't overflow */
-.comments-section {
-  margin-top: 20px;
-  padding: 0 20px;
-  flex-shrink: 0; /* Prevents shrinking */
+.show-full {
+  display: block;
 }
 
-.comments-section button {
-  margin-top: 10px;
+.see-more-btn {
+  background-color: #6e8efb;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.comment {
-  font-size: 0.9rem;
-  margin-bottom: 10px;
-  padding: 8px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+.see-more-btn:hover {
+  background-color: #5a7be1;
 }
 
-.show-full{
-  height: 200px;
-  overflow: scroll;
+/* General Styles for Reactions Section */
+.reactions-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
-.comments-list{
-  max-height: 300px;
-  overflow: scroll;
+
+.reactions-section button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f1f1;
+  color: #444;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.reactions-section button:hover {
+  background-color: #e2e2e2;
+  transform: translateY(-3px);
+}
+
+.reactions-section button:active {
+  transform: translateY(1px);
+}
+
+.reactions-section button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 255, 0.3);
+}
+
+.reactions-section button svg {
+  margin-right: 0.5rem;
+}
+
+/* Responsive Design */
+
+
+@media (max-width: 480px) {
+  .reactions-section button {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .profile-posts {
+    padding: 1rem;
+  }
+
+  .post-card {
+    padding: 1.5rem;
+  }
+  .reactions-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .reactions-section button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.5rem;
+    text-align: left;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-posts {
+    padding: 0.5rem;
+  }
+
+  .post-card {
+    padding: 1rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .post-author,
+  .post-date,
+  .post-interest,
+  .post-text {
+    font-size: 0.9rem;
+  }
+
+  .reactions-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .reactions-section button {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+
+.loader {
+  width: 93vw;
+  height: 100vh;
+  display: block;
+  margin: auto;
+  position: relative;
+  background: #fff;
+  box-sizing: border-box;
+}
+.loader::after {
+  content: "";
+  width: calc(100% - 30px);
+  height: calc(100% - 15px);
+  top: 15px;
+  left: 15px;
+  position: absolute;
+  background-image: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.5) 50%,
+      transparent 100%
+    ),
+    linear-gradient(#ddd 100px, transparent 0),
+    linear-gradient(#ddd 16px, transparent 0),
+    linear-gradient(#ddd 50px, transparent 0);
+  background-repeat: no-repeat;
+  background-size: 75px 175px, 100% 100px, 100% 16px, 100% 30px;
+  background-position: -185px 0, center 0, center 115px, center 142px;
+  box-sizing: border-box;
+  animation: animloader 1s linear infinite;
+}
+
+@keyframes animloader {
+  to {
+    background-position: 185px 0, center 0, center 115px, center 142px;
+  }
 }

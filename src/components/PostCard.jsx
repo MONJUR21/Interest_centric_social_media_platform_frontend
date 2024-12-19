@@ -1,5 +1,6 @@
 import Reactions from './Reactions';
 import CommentsSection from './CommentsSection';
+import { useEffect } from 'react';
 
 const PostCard = ({
   post,
@@ -15,7 +16,6 @@ const PostCard = ({
   updatePostComments
 }) => {
   const imageUrl = post.image ? `http://localhost:5000/${post.image.replace(/\\/g, '/')}` : '/default-image.jpg';
-
   return (
     <div key={post.id} className="post-card">
       <img
@@ -31,7 +31,7 @@ const PostCard = ({
           <strong>Interest:</strong> {post.interest}
         </p>
         <p className={`post-text ${post.showFullContent ? 'show-full' : ''}`}>
-          {post.showFullContent ? post.content : `${post.content.substring(0, 150)}...`}
+          {post.showFullContent ? post.content : `${post.content.substring(0, 150)}`}
         </p>
         {post.content.length > 150 && (
           <button className="see-more-btn" onClick={() => toggleContentVisibility(post.id)}>

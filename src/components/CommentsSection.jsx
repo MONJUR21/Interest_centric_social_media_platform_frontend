@@ -80,6 +80,7 @@ const CommentsSection = ({
             value={newComment}
             onChange={handleCommentChange}
             placeholder="Add a comment"
+            className="comment-textarea"
           ></textarea>
           <button
             onClick={() => handleCommentSubmit(post.id)}
@@ -101,7 +102,8 @@ const CommentsSection = ({
                   >
                     Save
                   </button>
-                  <button onClick={() => setEditingComment(null)}>
+                  <button onClick={() => setEditingComment(null)}
+                  className="comment-cancel-btn">
                     Cancel
                   </button>
                 </>
